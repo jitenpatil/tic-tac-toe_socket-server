@@ -1,8 +1,14 @@
+const { instrument } = require('@socket.io/admin-ui');
+
 const io = require("socket.io")(8900, {
     cors: {
-        origin:"http://192.168.1.205:3000"
-    }
+        origin:"http://localhost:3000"
+    }    
 });
+
+instrument(io, {
+    auth: false
+})
 
 let users = [];
 
@@ -20,7 +26,7 @@ io.on('connection', (socket)=> {
         io.emit("getUsers", users)
     });
 
-    socket.on("join", (data)=>{
+    socket.on("join", (data) => {
         console.log("Data:", data);
     });
 });
